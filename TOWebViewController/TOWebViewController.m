@@ -788,6 +788,17 @@
     //If a request handler has been set, check to see if we should go ahead
     if (self.shouldStartLoadRequestHandler)
         shouldStart = self.shouldStartLoadRequestHandler(request, navigationType);
+        
+    // Added to update page titles on a page change inside the webview
+    if (self.showPageTitles) 
+    {
+        NSString *title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+        
+        if (title.length)
+        {
+            self.title = title;
+        }
+    }
     
     //TODO: Implement TOModalWebViewController Delegate callback
     
